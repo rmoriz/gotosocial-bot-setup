@@ -4,7 +4,7 @@
 
 This project was created with the assistance of **Rovo Dev**, an AI agent powered by Claude 3.5 Sonnet, as part of the Atlassian Rovo platform. The initial prompt was:
 
-> "gotosociall is a mastodon compatible fediverse server available from https://github.com/superseriousbusiness/gotosocial . As a developer who wants to launch a couple of fediverse bots, I need to create an appliation, do some nasty curl to finally get an ACCECSS_TOKEN that can be used with mastodon clients. Can you simplify this solution?"
+> "GoToSocial is a Mastodon compatible fediverse server available from https://github.com/superseriousbusiness/gotosocial . As a developer who wants to launch a couple of fediverse bots, I need to create an application, do some nasty curl to finally get an ACCESS_TOKEN that can be used with mastodon clients. Can you simplify this solution?"
 
 The AI agent analyzed the problem of complex GoToSocial bot setup processes and created this comprehensive toolkit to automate and simplify the workflow. All code has been tested and follows Python best practices.
 
