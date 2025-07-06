@@ -45,7 +45,7 @@ source gotosocial_bot_env/bin/activate
 python gotosocial_automated.py \
   --instance https://your-instance.com \
   --app-name "My Bot" \
-  --username your-username \
+  --username your-email@example.com \
   --password your-password \
   --output bot_credentials.json
 ```
@@ -85,6 +85,8 @@ python gotosocial_token_generator.py --instance https://your-instance.com --app-
 - ✅ **Secure credential storage** - Saves all necessary data to JSON
 - ✅ **Works with most GoToSocial instances** - Uses standard OAuth2 authorization code flow
 
+**Note:** The `--username` parameter should typically be your **email address** that you use to log into your GoToSocial account, not your display username.
+
 ```bash
 # Activate virtual environment first
 source gotosocial_bot_env/bin/activate
@@ -92,7 +94,7 @@ source gotosocial_bot_env/bin/activate
 python gotosocial_automated.py \
   --instance https://social.example.com \
   --app-name "Weather Bot" \
-  --username your-username \
+  --username your-email@example.com \
   --password your-password \
   --output weather_bot_creds.json
 ```
@@ -374,14 +376,14 @@ except Exception as e:
    - Some instances may have application creation disabled
 
 2. **"Automated authorization failed" (gotosocial_automated.py)**
-   - Double-check your username and password
+   - Double-check your username/email and password (username is typically your email address on GoToSocial)
    - Make sure your account has the necessary permissions
    - Try the interactive method (`gotosocial_token_generator.py`) if automated fails
    - Some instances may have custom login forms - use interactive method as fallback
 
 
 4. **"Token verification failed"**
-   - Check your email/password are correct
+   - Check your username/email and password are correct (username is typically your email address on GoToSocial)
    - Verify your account has the necessary permissions
    - The token was created but may have limited permissions
    - Check the scopes you requested
