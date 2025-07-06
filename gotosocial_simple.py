@@ -85,7 +85,8 @@ class SimpleGoToSocialAuth:
             "grant_type": "password",
             "username": username,
             "password": password,
-            "scope": scopes
+            "scope": scopes,
+            "redirect_uri": "urn:ietf:wg:oauth:2.0:oob"
         }
         
         response = self.session.post(url, data=data)

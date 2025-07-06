@@ -11,6 +11,7 @@ env/
 *_creds.json
 *_token.json
 bot_*.json
+bot.json
 *.token
 
 # Python
