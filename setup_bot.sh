@@ -48,8 +48,8 @@ CREDS_FILE="gotosocial_${SAFE_INSTANCE}_${SAFE_APP_NAME}.json"
 
 echo "🔧 Setting up bot..."
 
-# Run the simple token generator
-python gotosocial_simple.py \
+# Run the automated token generator
+python gotosocial_automated.py \
     --instance "$INSTANCE_URL" \
     --app-name "$APP_NAME" \
     --username "$USERNAME" \

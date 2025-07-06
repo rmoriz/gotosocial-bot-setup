@@ -11,7 +11,6 @@ I've created a comprehensive toolkit that automates the entire process:
 ### 🎯 Core Components
 
 1. **`gotosocial_token_generator.py`** - Interactive token generation with browser OAuth flow
-2. **`gotosocial_simple.py`** - Automated token generation using username/password
 3. **`gotosocial_bot_helper.py`** - Easy-to-use bot operations library
 4. **`example_bot.py`** - Complete working bot example
 5. **Setup scripts** - Automated environment setup with virtual environments
@@ -26,7 +25,7 @@ I've created a comprehensive toolkit that automates the entire process:
 source gotosocial_bot_env/bin/activate
 
 # 3. Generate token (replace with your details)
-python gotosocial_simple.py \
+python gotosocial_automated.py \
   --instance https://your-instance.com \
   --app-name "My Bot" \
   --username your_username \
@@ -63,7 +62,7 @@ curl -X POST https://instance.com/oauth/token \
 
 **After (one command):**
 ```bash
-python gotosocial_simple.py --instance https://instance.com --app-name "My Bot" --username user --password pass --output bot.json
+python gotosocial_automated.py --instance https://instance.com --app-name "My Bot" --username user --password pass --output bot.json
 ```
 
 ### 📚 Usage Examples

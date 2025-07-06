@@ -64,7 +64,7 @@ if [ $? -eq 0 ]; then
     echo "      python gotosocial_token_generator.py --instance https://your-instance.com --app-name \"My Bot\""
     echo
     echo "   3. Or use the automated setup:"
-    echo "      python gotosocial_simple.py --instance https://your-instance.com --app-name \"My Bot\" --username your_user --password your_pass --output bot.json"
+    echo "      python gotosocial_automated.py --instance https://your-instance.com --app-name \"My Bot\" --username your_user --password your_pass --output bot.json"
     echo
     echo "   4. Test your bot:"
     echo "      python example_bot.py --credentials bot.json --demo"

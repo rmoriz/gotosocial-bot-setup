@@ -24,7 +24,6 @@ Thank you for your interest in contributing to this project! This toolkit aims t
 ## Project Structure
 
 - `gotosocial_token_generator.py` - Interactive OAuth flow setup
-- `gotosocial_simple.py` - Automated username/password setup
 - `gotosocial_bot_helper.py` - Bot operations library
 - `example_bot.py` - Example bot implementation
 - `test_setup.py` - Test suite

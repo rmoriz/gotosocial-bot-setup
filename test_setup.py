@@ -21,12 +21,6 @@ def test_imports():
         print(f"  ❌ gotosocial_token_generator: {e}")
         return False
     
-    try:
-        import gotosocial_simple
-        print("  ✓ gotosocial_simple")
-    except ImportError as e:
-        print(f"  ❌ gotosocial_simple: {e}")
-        return False
     
     try:
         from gotosocial_bot_helper import GoToSocialBot

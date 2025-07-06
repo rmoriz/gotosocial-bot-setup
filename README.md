@@ -24,15 +24,39 @@ This is tedious and error-prone, especially when setting up multiple bots.
 
 ## The Solution
 
-Three Python scripts that automate the entire process, with proper virtual environment support.
+Three Python scripts that automate the entire process, with proper virtual environment support:
+
+1. **`gotosocial_automated.py`** - 🆕 **Fully automated** OAuth flow (no browser required)
+2. **`gotosocial_token_generator.py`** - Interactive OAuth flow with browser
+3. **`gotosocial_bot_helper.py`** - Helper utilities for bot development
 
 ### Quick Start
 
+#### Option 1: Fully Automated (No Browser Required) 🆕
+
 ```bash
-# Option 1: Automated setup with virtual environment (recommended)
+# Setup virtual environment
 ./setup_venv.sh
 
-# Option 2: Quick bot setup (creates venv automatically)
+# Activate environment
+source gotosocial_bot_env/bin/activate
+
+# Generate token automatically (no browser interaction)
+python gotosocial_automated.py \
+  --instance https://your-instance.com \
+  --app-name "My Bot" \
+  --username your-username \
+  --password your-password \
+  --output bot_credentials.json
+```
+
+#### Option 2: Interactive Setup (Browser Required)
+
+```bash
+# Option 2a: Automated setup with virtual environment (recommended)
+./setup_venv.sh
+
+# Option 2b: Quick bot setup (creates venv automatically)
 ./setup_bot.sh
 
 # Option 3: Manual setup
@@ -43,14 +67,54 @@ pip install -r requirements.txt
 # Then use the tools:
 python gotosocial_token_generator.py --instance https://your-instance.com --app-name "My Bot"
 # or
-python gotosocial_simple.py --instance https://your-instance.com --app-name "My Bot" --username your_username --password your_password --output bot_credentials.json
 ```
 
 ## Scripts Overview
 
-### 1. `gotosocial_token_generator.py` - Interactive Setup
+### 1. `gotosocial_automated.py` - 🆕 Fully Automated OAuth Flow
 
-**Best for:** First-time setup, when you want to see each step
+**Best for:** Automated deployments, CI/CD, server setups, or when you want zero manual interaction
+
+**NEW!** The most convenient script that handles the complete OAuth flow without requiring browser interaction. This script programmatically logs in and authorizes your application.
+
+**Features:**
+- ✅ **No browser required** - Handles OAuth flow programmatically
+- ✅ **Automatic login** - Uses your credentials to log in automatically  
+- ✅ **Authorization handling** - Submits OAuth authorization forms automatically
+- ✅ **Token verification** - Tests the generated token
+- ✅ **Secure credential storage** - Saves all necessary data to JSON
+- ✅ **Works with most GoToSocial instances** - Uses standard OAuth2 authorization code flow
+
+```bash
+# Activate virtual environment first
+source gotosocial_bot_env/bin/activate
+
+python gotosocial_automated.py \
+  --instance https://social.example.com \
+  --app-name "Weather Bot" \
+  --username your-username \
+  --password your-password \
+  --output weather_bot_creds.json
+```
+
+**Example Output:**
+```
+Creating application 'Weather Bot' on https://social.example.com...
+✓ Application created successfully!
+Starting automated authorization...
+✓ Login successful!
+✓ Got authorization code: ABCD1234...
+✓ Access token generated successfully!
+✓ Token verification successful!
+✓ Credentials saved to: weather_bot_creds.json
+
+🎉 SUCCESS! Your access token: NTNLZGQ0MZ...
+Account: @your_bot_account
+```
+
+### 2. `gotosocial_token_generator.py` - Interactive Setup
+
+**Best for:** First-time setup, when you want to see each step, or when automated script doesn't work
 
 Features:
 - Creates application automatically
@@ -67,27 +131,6 @@ python gotosocial_token_generator.py \
   --instance https://social.example.com \
   --app-name "Weather Bot" \
   --scopes "read write:statuses"
-```
-
-### 2. `gotosocial_simple.py` - Automated Setup
-
-**Best for:** Automated deployments, when you control the account credentials
-
-Features:
-- One-command setup using username/password
-- No browser interaction needed
-- Perfect for CI/CD and automated deployments
-
-```bash
-# Activate virtual environment first
-source gotosocial_bot_env/bin/activate
-
-python gotosocial_simple.py \
-  --instance https://social.example.com \
-  --app-name "News Bot" \
-  --username mybot \
-  --password mypassword \
-  --output news_bot_creds.json
 ```
 
 ### 3. `gotosocial_bot_helper.py` - Bot Operations
@@ -161,7 +204,7 @@ Use the provided setup scripts for easier management:
 source gotosocial_bot_env/bin/activate
 
 # 3. Generate credentials
-python gotosocial_simple.py \
+python gotosocial_automated.py \
   --instance https://social.myserver.org \
   --app-name "Weather Bot" \
   --username weatherbot \
@@ -330,19 +373,36 @@ except Exception as e:
    - Verify the instance is running and accessible
    - Some instances may have application creation disabled
 
-2. **"Token verification failed"**
-   - Check your username/password are correct
-   - Verify your account has the necessary permissions
-   - Some instances may not support password grants
+2. **"Automated authorization failed" (gotosocial_automated.py)**
+   - Double-check your username and password
+   - Make sure your account has the necessary permissions
+   - Try the interactive method (`gotosocial_token_generator.py`) if automated fails
+   - Some instances may have custom login forms - use interactive method as fallback
 
-3. **"Permission denied"**
+
+4. **"Token verification failed"**
+   - Check your email/password are correct
+   - Verify your account has the necessary permissions
+   - The token was created but may have limited permissions
+   - Check the scopes you requested
+
+5. **"Permission denied"**
    - Check your OAuth scopes
    - Verify your account has the required permissions
    - Some operations may require admin approval
 
-4. **"Module not found"**
+6. **"Module not found"**
    - Make sure you activated the virtual environment: `source gotosocial_bot_env/bin/activate`
    - Install dependencies: `pip install -r requirements.txt`
+
+### Choosing the Right Script
+
+| Scenario | Recommended Script | Why |
+|----------|-------------------|-----|
+| **Automated deployment/CI/CD** | `gotosocial_automated.py` | No browser required, fully automated |
+| **First time setup** | `gotosocial_automated.py` | Easiest and most reliable |
+| **Custom instance with special auth** | `gotosocial_token_generator.py` | Manual control over OAuth flow |
+| **Automated script fails** | `gotosocial_token_generator.py` | Fallback with manual authorization |
 
 ### Virtual Environment Issues
 
@@ -357,9 +417,9 @@ pip install -r requirements.txt
 ## Project Structure
 
 ```
-gotosocial-bot-tools/
-├── gotosocial_token_generator.py  # Interactive token generation
-├── gotosocial_simple.py           # Automated token generation
+gotosocial-bot-setup/
+├── gotosocial_automated.py        # 🆕 Fully automated OAuth flow (no browser)
+├── gotosocial_token_generator.py  # Interactive token generation (browser)
 ├── gotosocial_bot_helper.py       # Bot operations library
 ├── example_bot.py                 # Example bot implementation
 ├── test_setup.py                  # Test suite
