@@ -532,7 +532,7 @@ class AutomatedGoToSocialAuth:
             return None
 
 def automated_setup(instance_url: str, app_name: str, username: str, password: str, 
-                   output_file: Optional[str] = None) -> Dict[str, Any]:
+                   output_file: Optional[str] = None, scopes: str = "read write") -> Dict[str, Any]:
     """
     Complete automated setup for GoToSocial bot authentication.
     
@@ -553,6 +553,7 @@ def automated_setup(instance_url: str, app_name: str, username: str, password: s
         username: User's login username or email
         password: User's login password
         output_file: Optional path to save credentials JSON file
+        scopes: OAuth scopes to request (default: "read write")
         
     Returns:
         Dictionary containing all credentials and metadata
@@ -571,7 +572,7 @@ def automated_setup(instance_url: str, app_name: str, username: str, password: s
         print(f"Bot token: {result['access_token']}")
     """
     
-    auth = AutomatedGoToSocialAuth(instance_url, app_name)
+    auth = AutomatedGoToSocialAuth(instance_url, app_name, scopes)
     
     # Step 1: Create application
     app_data = auth.create_application()
@@ -628,7 +629,8 @@ if __name__ == "__main__":
             args.app_name,
             args.username,
             args.password,
-            args.output
+            args.output,
+            args.scopes
         )
         
     except Exception as e:
